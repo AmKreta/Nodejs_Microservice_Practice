@@ -1,8 +1,9 @@
 {
   // Visit https://aka.ms/tsconfig to read more about this file
   "compilerOptions": {
-    "module": "nodenext",
-    "target": "esnext",
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "target": "ESNext",
     "types": [],
     "sourceMap": true,
     "declaration": true,
@@ -16,11 +17,5 @@
     "moduleDetection": "force",
     "skipLibCheck": true,
   },
-  "paths": {
-    "@app/*": ["app/*"],
-    "@libs/*": ["libs/*"],
-    "@packages/*": ["packages/*"]
-  },
-  "include": ["**/*.ts", "**/*.tsx"],
   "exclude": ["node_modules", "dist"]
 }
