@@ -1,4 +1,4 @@
-import { errorHandler, httpLogger, logger, successResponse } from "@nodejsmicroservices/packages-shared";
+import { AppError, errorHandler, httpLogger, logger, successResponse } from "@nodejsmicroservices/packages-shared";
 import { setupEnv } from "./setupEnv";
 import express from "express";
 import cors from "cors";
@@ -18,6 +18,10 @@ app.use("/auth", authRouter);
 
 app.get("/health", (_, res) => {
     successResponse(res, "Auth service is running");
+});
+
+app.use((req, res, next) => {
+    next(new AppError("Not found", 404));
 });
 
 app.use(errorHandler);

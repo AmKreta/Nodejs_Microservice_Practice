@@ -4,9 +4,12 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "auth-service:dev": "tsx watch apps/auth-service/src/index.ts",
-    "auth-service:start": "tsx apps/auth-service/src/index.ts",
-    "db:migrate": "tsx scripts/db-migrate.ts"
+    "auth-service:dev": "npm run dev --workspace=@nodejsmicroservices/apps-auth-service",
+    "auth-service:start": "npm run start --workspace=@nodejsmicroservices/apps-auth-service",
+    "api-gateway:dev": "npm run dev --workspace=@nodejsmicroservices/apps-api-gateway",
+    "api-gateway:start": "npm run start --workspace=@nodejsmicroservices/apps-api-gateway",
+    "db:migrate": "tsx scripts/db-migrate.ts",
+    "dev": "npm run auth-service:dev & npm run api-gateway:dev"
   },
   "author": "",
   "license": "ISC",
@@ -17,10 +20,18 @@
     "apps/*"
   ],
   "devDependencies": {
-    "tsx": "^4.23.13",
-    "typescript": "^7.0.2",
     "@types/express": "^5.0.6",
     "@types/node": "^22.20.4",
-    "turbo": "2.5.4"
+    "tsx": "^4.23.13",
+    "turbo": "2.5.4",
+    "typescript": "^7.0.2"
+  },
+  "dependencies": {
+    "@nodejsmicroservices/apps-api-gateway": "^1.0.0",
+    "cors": "^2.8.6",
+    "dotenv": "^18.0.1",
+    "express": "^5.2.1",
+    "express-rate-limit": "^8.7.0",
+    "http-proxy-middleware": "^3.0.7"
   }
 }
