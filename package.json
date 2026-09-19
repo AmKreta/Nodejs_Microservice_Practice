@@ -5,7 +5,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "auth-service:dev": "tsx watch apps/auth-service/src/index.ts",
-    "auth-service:start": "tsx apps/auth-service/src/index.ts"
+    "auth-service:start": "tsx apps/auth-service/src/index.ts",
+    "db:migrate": "tsx scripts/db-migrate.ts"
   },
   "author": "",
   "license": "ISC",

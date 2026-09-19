@@ -1,9 +1,8 @@
-import type { ZodSchema } from "zod/v3";
+import type { ZodType } from "zod/v4";
 import type { Request, Response, NextFunction } from "express";
-import { failResponse } from "../response";
 import { AppError } from "../errors";
 
-export function ValidateBody<T>(schema: ZodSchema<T>) {
+export function validateBody<T>(schema: ZodType<T>) {
     return (req: Request, _res: Response, next: NextFunction) => {
         const result = schema.safeParse(req.body);
         if (!result.success) {

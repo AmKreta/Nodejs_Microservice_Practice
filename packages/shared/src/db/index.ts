@@ -2,20 +2,24 @@ import { Pool } from 'pg';
 
 let pool: Pool | null = null;
 
+function requiredEnv(name: string): string {
+    const value = process.env[name]?.trim();
+    if (!value) {
+        throw new Error(`Missing required environment variable ${name}`);
+    }
+    return value;
+}
+
 export const getPool = (): Pool => {
     if (!pool) {
-        try {
-            pool = new Pool({
-                user: process.env.DB_USER,
-                host: process.env.DB_HOST,
-                database: process.env.DB_NAME,
-                password: process.env.DB_PASSWORD,
-                port: parseInt(process.env.DB_PORT || '5432'),
-            });
-        } catch (error) {
-            console.error('Error initializing pool', error);
-            throw error;
-        }
+        pool = new Pool({
+            user: requiredEnv('DB_USER'),
+            host: requiredEnv('DB_HOST'),
+            database: requiredEnv('DB_NAME'),
+            password: requiredEnv('DB_PASSWORD'),
+            port: parseInt(process.env.DB_PORT?.trim() || '5432', 10),
+            ssl: { rejectUnauthorized: true },
+        });
     }
     return pool;
 }

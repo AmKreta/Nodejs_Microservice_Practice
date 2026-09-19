@@ -1,9 +1,10 @@
 import { config } from "dotenv";
-import path from "path";
+import path from "node:path";
 
+// Listed highest-priority first: dotenv keeps the value that was loaded first.
 const envFilePaths = [
-    path.resolve(process.cwd(), "../", "..", ".env"),
-    path.resolve(__dirname,"../", ".env"),
+    path.resolve(__dirname, "..", ".env"),
+    path.resolve(__dirname, "..", "..", "..", ".env"),
 ]
 
 export function setupEnv() {
