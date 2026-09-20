@@ -5,6 +5,7 @@ import helmet from "helmet";
 import rateLimit from "express-rate-limit";
 import { createProxyMiddleware } from "http-proxy-middleware";
 import { errorHandler, successResponse, logger, AppError, httpLogger } from "@nodejsmicroservices/packages-shared";
+import { gatewayAuthMiddleware } from "./middleware/gateway-auth.middleware";
 
 setupEnv();
 
@@ -27,6 +28,8 @@ app.use(rateLimit({
     legacyHeaders: false,
     ipv6Subnet: 56,
 }));
+
+app.use(gatewayAuthMiddleware);
 
 app.use("/auth", createProxyMiddleware({
     target: authServiceUrl,

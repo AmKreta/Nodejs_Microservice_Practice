@@ -1,6 +1,6 @@
 import type { Request, Response } from "express";
 import * as authService from "../services/auth.service";
-import { AppError, errorResponse, successResponse, verifyToken } from "@nodejsmicroservices/packages-shared";
+import { AppError, errorResponse, successResponse } from "@nodejsmicroservices/packages-shared";
 
 export async function registerUser(req: Request, res: Response) {
     try {
@@ -22,23 +22,11 @@ export async function loginUser(req: Request, res: Response) {
 
 export async function getMe(req: Request, res: Response) {
     try {
-        const userId = req.headers["authorization"];
-        console.log({userId})
-        if(!userId){
-            throw new AppError("Authorization header is required", 400);
+        const userId = req.headers["x-user-id"];
+        if(!userId || typeof userId !== "string"){
+            throw new AppError("x-user-id header is required", 400);
         }
-        if(typeof userId !== "string"){
-            throw new AppError("Authorization header must be a string", 400);
-        }
-        if(!userId.startsWith("Bearer ")){
-            throw new AppError("Invalid Authorization header format", 400);
-        }
-        const token = userId.split(" ")[1];
-        if(!token){
-            throw new AppError("Authorization token is required", 400);
-        }
-        const payload = verifyToken(token);
-        const user = await authService.getMe(payload.id);
+        const user = await authService.getMe(userId);
         successResponse(res, {user}, 200);
     } catch (error) {
         errorResponse(res, error as Error);

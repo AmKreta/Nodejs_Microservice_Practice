@@ -36,6 +36,20 @@ function isValidPayload(payload: string | JwtPayload): payload is UserJwtPayload
     return true;
 }
 
+export function extractTokenFromAuthorizationHeader(authorization: string | undefined): string {
+    if(!authorization){
+        throw new AppError("Authorization header is required", 401);
+    }
+    const [type, token] = authorization.split(" ");
+    if(type !== "Bearer"){
+        throw new AppError("Invalid authorization header format", 401);
+    }
+    if(!token){
+        throw new AppError("Token is required", 401);
+    }
+    return token;
+}
+
 export function verifyToken(token: string): UserJwtPayload {
     const payload = verify(token, process.env.JWT_SECRET as string);
     if(!isValidPayload(payload)){
