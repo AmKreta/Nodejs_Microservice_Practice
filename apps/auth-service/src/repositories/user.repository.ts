@@ -1,5 +1,4 @@
-import type { User } from "../types/auth.types";
-import { getPool } from "@nodejsmicroservices/packages-shared";
+import { getPool, type User } from "@nodejsmicroservices/packages-shared";
 
 export async function createUser(userInput: Omit<User, "id" | "createdAt" | "updatedAt">) {
     const user = await getPool().query<Omit<User, "password_hash">>(`

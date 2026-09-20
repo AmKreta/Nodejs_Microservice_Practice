@@ -1,5 +1,5 @@
 import { sign, verify, type SignOptions } from "jsonwebtoken";
-import type { UserJwtPayload } from "../types/auth.types";
+import type { UserJwtPayload } from "@nodejsmicroservices/packages-shared";
 import { AppError } from "@nodejsmicroservices/packages-shared";
 
 export function getJwtSecret() {

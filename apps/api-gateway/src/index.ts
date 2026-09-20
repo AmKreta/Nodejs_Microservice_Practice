@@ -8,8 +8,8 @@ import { errorHandler, successResponse, logger, AppError, httpLogger } from "@no
 
 setupEnv();
 
-const port = process.env.API_GATEWAY_PORT?.trim() || "3000";
-const authServiceUrl = `${process.env.BASE_URL?.trim()}:${process.env.AUTH_SERVICE_PORT?.trim()}`;
+const port = process.env.API_GATEWAY_PORT || "3000";
+const authServiceUrl = `${process.env.BASE_URL}:${process.env.AUTH_SERVICE_PORT}`;
 
 const app = express();
 app.use(httpLogger);
@@ -31,6 +31,9 @@ app.use(rateLimit({
 app.use("/auth", createProxyMiddleware({
     target: authServiceUrl,
     changeOrigin: true,
+    headers: {
+        "x-gateway-secret": process.env.GATEWAY_SECRET || "",
+    },
     pathRewrite: path => "/auth" + path
 }));
 

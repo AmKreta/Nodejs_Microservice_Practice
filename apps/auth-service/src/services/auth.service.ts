@@ -1,7 +1,7 @@
 import type { LoginSchema, RegisterSchema } from "../schemas/auth.schemas";
 import { compare, hash } from "bcrypt";
 import { createUser, getUserByEmail, getUserById } from "../repositories/user.repository";
-import { UserRole } from "../types/auth.types";
+import { UserRole } from "@nodejsmicroservices/packages-shared";
 import { AppError } from "@nodejsmicroservices/packages-shared";
 import { signToken } from "../utils/jwt";
 
@@ -33,6 +33,7 @@ export async function loginUser(loginData: LoginSchema){
         name: user.name,
         email: user.email,
         role: user.role as UserRole,
+        id: user.id,
     });
     return { user, token };
 }

@@ -1,4 +1,4 @@
-import { AppError, errorHandler, httpLogger, logger, successResponse } from "@nodejsmicroservices/packages-shared";
+import { AppError, errorHandler, httpLogger, logger, requireGatewaySecret, successResponse } from "@nodejsmicroservices/packages-shared";
 import { setupEnv } from "./setupEnv";
 import express from "express";
 import cors from "cors";
@@ -13,6 +13,7 @@ app.use(httpLogger);
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cors({origin: '*',methods: '*'}));
+app.use(requireGatewaySecret);
 
 app.use("/auth", authRouter);
 
