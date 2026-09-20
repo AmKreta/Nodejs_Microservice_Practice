@@ -32,9 +32,6 @@ app.use(rateLimit({
 app.use("/auth", gatewayAuthMiddleware, createProxyMiddleware({
     target: authServiceUrl,
     changeOrigin: true,
-    headers: {
-        "x-gateway-secret": process.env.GATEWAY_SECRET || "",
-    },
     pathRewrite: path => "/auth" + path
 }));
 
