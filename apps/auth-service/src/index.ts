@@ -10,10 +10,10 @@ const port = process.env.AUTH_SERVICE_PORT || 3000;
 
 const app = express();
 app.use(httpLogger);
+app.use(requireGatewaySecret);
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cors({origin: '*',methods: '*'}));
-app.use(requireGatewaySecret);
 
 app.use("/auth", authRouter);
 

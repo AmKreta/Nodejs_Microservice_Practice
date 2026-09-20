@@ -18,7 +18,7 @@ function stripeIdentityHeaders(req: Request) {
 
 function attachGatewaySecret(req: Request) {
     const gatewaySecret = process.env.GATEWAY_SECRET;
-    if(!gatewaySecret){
+    if(!gatewaySecret){ 
         throw new AppError("gateway secret is not set on the environment variables", 500);
     }
     req.headers["x-gateway-secret"] = process.env.GATEWAY_SECRET;

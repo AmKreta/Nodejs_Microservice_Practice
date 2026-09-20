@@ -11,6 +11,7 @@ setupEnv();
 
 const port = process.env.API_GATEWAY_PORT || "3000";
 const authServiceUrl = `${process.env.BASE_URL}:${process.env.AUTH_SERVICE_PORT}`;
+const taskServiceUrl = `${process.env.BASE_URL}:${process.env.TASK_SERVICE_PORT}`;
 
 const app = express();
 app.use(httpLogger);
@@ -33,6 +34,15 @@ app.use("/auth", gatewayAuthMiddleware, createProxyMiddleware({
     target: authServiceUrl,
     changeOrigin: true,
     pathRewrite: path => "/auth" + path
+}));
+
+app.use("/task", createProxyMiddleware({
+    target: taskServiceUrl,
+    changeOrigin: true,
+    headers: {
+        "x-gateway-secret": process.env.GATEWAY_SECRET || "",
+    },
+    pathRewrite: path => "/task" + path
 }));
 
 

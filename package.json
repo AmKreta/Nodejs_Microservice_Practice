@@ -8,8 +8,10 @@
     "auth-service:start": "npm run start --workspace=@nodejsmicroservices/apps-auth-service",
     "api-gateway:dev": "npm run dev --workspace=@nodejsmicroservices/apps-api-gateway",
     "api-gateway:start": "npm run start --workspace=@nodejsmicroservices/apps-api-gateway",
+    "task-service:dev": "npm run dev --workspace=@nodejsmicroservices/apps-task-service",
+    "task-service:start": "npm run start --workspace=@nodejsmicroservices/apps-task-service",
     "db:migrate": "tsx scripts/db-migrate.ts",
-    "dev": "npm run auth-service:dev & npm run api-gateway:dev"
+    "dev": "npm run auth-service:dev & npm run api-gateway:dev & npm run task-service:dev"
   },
   "author": "",
   "license": "ISC",

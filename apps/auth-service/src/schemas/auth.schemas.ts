@@ -1,5 +1,4 @@
 import { z } from "zod";
-import type { UserRole } from "@nodejsmicroservices/packages-shared";
 
 export const registerSchema = z.object({
     name: z.string().min(1).max(255),

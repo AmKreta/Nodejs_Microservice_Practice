@@ -8,7 +8,7 @@ export function requireGatewaySecret(req: Request, res: Response, next: NextFunc
     }
     const gatewaySecret = req.headers["x-gateway-secret"];
     if(!gatewaySecret){
-        next(new AppError("Gateway secret is provided", 401));
+        next(new AppError("Gateway secret is not provided", 401));
         return;
     }
     if(gatewaySecret !== process.env.GATEWAY_SECRET){
