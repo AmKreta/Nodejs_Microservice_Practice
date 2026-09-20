@@ -29,9 +29,7 @@ app.use(rateLimit({
     ipv6Subnet: 56,
 }));
 
-app.use(gatewayAuthMiddleware);
-
-app.use("/auth", createProxyMiddleware({
+app.use("/auth", gatewayAuthMiddleware, createProxyMiddleware({
     target: authServiceUrl,
     changeOrigin: true,
     headers: {
