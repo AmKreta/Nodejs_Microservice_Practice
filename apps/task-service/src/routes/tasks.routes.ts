@@ -6,7 +6,7 @@ import { validateBody } from "@nodejsmicroservices/packages-shared";
 const taskRouter = Router();
 
 taskRouter.post('/createTask',validateBody(taskCreateSchema), createTask);
-taskRouter.get('getUsersTasks/:userId', getTasksByUserId);
+taskRouter.get('/getUserTasks/:userId', getTasksByUserId);
 taskRouter.get('/getTaskById/:id', getTaskById);
 taskRouter.delete('/deleteTask/:id', deleteTaskById);
 taskRouter.patch('/updateTask/:id', validateBody(taskUpdateSchema), updateTaskById);

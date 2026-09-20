@@ -6,6 +6,7 @@ import rateLimit from "express-rate-limit";
 import { createProxyMiddleware } from "http-proxy-middleware";
 import { errorHandler, successResponse, logger, AppError, httpLogger } from "@nodejsmicroservices/packages-shared";
 import { gatewayAuthMiddleware } from "./middleware/gateway-auth.middleware";
+import { taskAuthMiddleware } from "./middleware/task-auth.middleware";
 
 setupEnv();
 
@@ -36,12 +37,9 @@ app.use("/auth", gatewayAuthMiddleware, createProxyMiddleware({
     pathRewrite: path => "/auth" + path
 }));
 
-app.use("/task", createProxyMiddleware({
+app.use("/task", taskAuthMiddleware, createProxyMiddleware({
     target: taskServiceUrl,
     changeOrigin: true,
-    headers: {
-        "x-gateway-secret": process.env.GATEWAY_SECRET || "",
-    },
     pathRewrite: path => "/task" + path
 }));
 
